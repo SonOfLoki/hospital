@@ -20,7 +20,7 @@ def HomePage(request):
 
         appointment =   Appointment.objects.create(full_name=full_name, email=email, date=date, department=department, number=number, message=message)
         appointment.save()
-        messages.success('Your appointment has been made')
+        messages.success(request, 'Your appointment has been made')
         return redirect('/')
     
     else:
@@ -55,6 +55,18 @@ def NewsPage(request):
 def DetailPage(request, slug ):
     news = News.objects.get(slug = slug)
     new = News.objects.all()
+    
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        website = request.POST.get('website')
+        message = request.POST.get('message')
+
+        contact =   Contact.objects.create(name=name, email=email,website=website ,message=message)
+        contact.save()
+        messages.success(request, 'Your appointment has been made')
+        return redirect("You'll recieve a response in an email from us in 1-2 business days")
+
     context = {
         'news' : news,
         'new' : new
@@ -70,7 +82,7 @@ def ContactPage(request):
 
         contact =   Contact.objects.create(name=name, email=email,subject=subject ,message=message)
         contact.save()
-        messages.success('Your appointment has been made')
+        messages.success(request, 'Your appointment has been made')
         return redirect("You'll recieve a response in an email from us in 1-2 business days")
     
     else:

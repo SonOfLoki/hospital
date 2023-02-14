@@ -92,7 +92,7 @@
     </nav>
   </header>
 
-  <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_1.jpg);">
+  <div class="page-hero bg-image overlay-dark" style="background-image: url(/static/app/assets/img/bg_image_1.jpg);">
     <div class="hero-section">
       <div class="container text-center wow zoomIn">
         <span class="subhead">Let's make your life happier</span>
@@ -220,7 +220,7 @@
     <div class="container">
       <h1 class="text-center wow fadeInUp">Make an Appointment</h1>
 
-      <form class="main-form">
+      <form class="main-form" method="post">
         {% csrf_token %}
         <div class="row mt-5 ">
           <div class="col-12 col-sm-6 py-2 wow fadeInLeft">

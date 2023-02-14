@@ -52,3 +52,12 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class Comment(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    website = models.CharField(max_length=200)
+    message = models.TextField()
+
+    def __str__(self) -> str:
+        return f"{self.name}'s comment"
