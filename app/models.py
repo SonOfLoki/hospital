@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 departments = (
     ('General Health', 'General Health'),
@@ -42,6 +43,11 @@ class News(models.Model):
    
     def get_absolute_url(self):
         return reverse("blog-detail", kwargs={"slug": self.slug}) 
+
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
     
 
 class Contact(models.Model):
