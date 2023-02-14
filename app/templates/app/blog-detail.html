@@ -193,7 +193,7 @@
 
             <div class="sidebar-block">
               <h3 class="sidebar-title">Recent Blog</h3>
-              {% for news in new %}
+              {% for news in new|slice:":3" %}
               <div class="blog-item">
                 <a class="post-thumb" href="">
                   <img src="{{news.image.url}}" alt="">
