@@ -64,8 +64,8 @@ def DetailPage(request, slug ):
 
         comment =   Comment.objects.create(name=name, email=email,website=website ,message=message)
         comment.save()
-        messages.success(request, 'Your appointment has been made')
-        return redirect("You'll recieve a response in an email from us in 1-2 business days")
+        messages.success(request, 'Your comment has been saved')
+        return redirect('blog')
 
     context = {
         'news' : news,

@@ -14,6 +14,13 @@
 
 	</head>
 	<body>
+		{% if messages %}
+		{% for message in messages %}
+		  <div class="alert alert-{{ message.tags }}">
+			{{ message }}
+		  </div>
+		{% endfor %}
+	  {% endif %}
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
