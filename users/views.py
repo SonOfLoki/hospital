@@ -10,13 +10,14 @@ def SignUp(request):
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
 
-        if CustomUser.objects.filter(email=email).exists():
-            messages.error('This email has already been taken')           
-        elif password == password2:
-            user =   CustomUser.objects.create(email=email, password=password, password2=password2)
-            user.save()
-            messages.success(request, 'Your account has been made')
-            return redirect('/') 
+        if password == password2:
+            if CustomUser.objects.filter(email=email).exists():
+                messages.error('This email has already been taken')           
+            else:
+                user = CustomUser.objects.create(email=email, password=password)
+                user.save()
+                messages.success(request, 'Your account has been made')
+                return redirect('/') 
         else:
             messages.error(request, 'Your passwords do not match')
           
@@ -33,10 +34,11 @@ def SignIn(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, f'Welcome back')
-            return('/')
+            return redirect('/')
 
         else:
-            messages.error('Your password or username are not correct')
+            messages.error(request, 'Your password or username are not correct')
+            return redirect("signin")
 
     else:
         return render(request, 'users/signin.html')
