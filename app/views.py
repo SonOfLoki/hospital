@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Appointment, Doctor, News, Contact
+from .models import Appointment, Doctor, News, Contact, Comment
 from django.contrib import messages
 
 def HomePage(request):
@@ -62,8 +62,8 @@ def DetailPage(request, slug ):
         website = request.POST.get('website')
         message = request.POST.get('message')
 
-        contact =   Contact.objects.create(name=name, email=email,website=website ,message=message)
-        contact.save()
+        comment =   Comment.objects.create(name=name, email=email,website=website ,message=message)
+        comment.save()
         messages.success(request, 'Your appointment has been made')
         return redirect("You'll recieve a response in an email from us in 1-2 business days")
 
@@ -82,8 +82,7 @@ def ContactPage(request):
 
         contact =   Contact.objects.create(name=name, email=email,subject=subject ,message=message)
         contact.save()
-        messages.success(request, 'Your appointment has been made')
-        return redirect("You'll recieve a response in an email from us in 1-2 business days")
-    
+        messages.success(request, "You'll recieve a response in an email from us in 1-2 business days")
+        return redirect('home')
     else:
         return render(request, 'app/contact.html')
