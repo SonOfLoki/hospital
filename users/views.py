@@ -12,7 +12,8 @@ def SignUp(request):
 
         if password == password2:
             if CustomUser.objects.filter(email=email).exists():
-                messages.error('This email has already been taken')           
+                messages.error('This email has already been taken')    
+                return redirect('signup')       
             else:
                 user = CustomUser.objects.create(email=email, password=password)
                 user.save()
@@ -20,6 +21,7 @@ def SignUp(request):
                 return redirect('/') 
         else:
             messages.error(request, 'Your passwords do not match')
+            return redirect('signup')
           
     else:
         return render(request, 'users/signup.html')
